@@ -41,13 +41,14 @@ describe('WebElements Test cases', () => {
         expect (isCustomGenderSelected, 'Custom gender is already selected').to.be.false;
 
         await browser.pause(5000);
-
+ 
+        // 6. If female gender is NOT selected, then click on female gender radio button
         const femaleRadioButtonClick = await $('button id=u_13_4_gr');
         femaleRadioButtonClick.click();
 
         await browser.pause(5000);
 
-        // 6. Verify female-gender button is selected
+        // 7. Verify female-gender button is selected
         const femaleRadioButtonSelected = await $('input[value="1"]');
         const isFemaleGenderSelectedTrue = await femaleRadioButton.isSelected();
         expect(isFemaleGenderSelectedTrue, 'Female gender is already selected').to.be.true;
