@@ -22,11 +22,12 @@ describe('WebElements Test cases', () => {
          await browser.pause(7000);
 
          // 3. Verify female-gender button is not selected
+        
         const femaleRadioButton = await $('input[value="1"]');
         const isFemaleGenderSelected = await femaleRadioButton.isSelected();
         expect(isFemaleGenderSelected, 'Female gender is already selected').to.be.false;
-
         await browser.pause(5000);
+       
 
         // 4. Verify male-gender button is not selected
         const maleRadioButton = await $('[input[value="2"]');
@@ -43,11 +44,14 @@ describe('WebElements Test cases', () => {
         await browser.pause(5000);
  
         // 6. If female gender is NOT selected, then click on female gender radio button
-        const femaleRadioButtonClick = await $('button id=u_13_4_gr');
-        femaleRadioButtonClick.click();
+        if (!isFemaleGenderSelected) {              // isFemaleGenderSelected === false     <--> !isFemaleGenderSelected
+            await femaleRadioButton.click()
+        }
 
-        await browser.pause(5000);
 
+    });
+
+});
         // 7. Verify female-gender button is selected
         const femaleRadioButtonSelected = await $('input[value="1"]');
         const isFemaleGenderSelectedTrue = await femaleRadioButton.isSelected();
