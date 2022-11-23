@@ -24,6 +24,21 @@ createNewAccountButton.click();
 
  await browser.pause(7000);
 
+ // 3. Select 10 in date dropdown
+ const dayDropdown = await $('#day');
+ dayDropdown.selectByAttribute('value', '22');
+
+ // 4. Select Oct in month dropdown
+ const monthDropdown = await $('#month');
+ await monthDropdown.selectByVisibleText('Nov');
+
+ // 5. Select 2010 in year dropdown
+ const yearDropdown = await $('#year');
+ yearDropdown.selectByVisibleText(`2022`);
+
+ await browser.pause(10000);
+
+ //Resolution: I'm not sure how to check that the default date is displayed and compared to the current date.
 
 /**
  * TC-2: https://www.facebook.com/
@@ -33,10 +48,22 @@ createNewAccountButton.click();
  */
 // 1. Launch facebook.com
 await browser.url('/');
-const clickCreateAccountButton = await $('=Create New Account');
+
+// 2. Click Create New Account button
+const createNewAccountButton2 = await $('=Create New Account');
+createNewAccountButton2.click();
+
+ await browser.pause(7000);
+
+const clickCreateAccountButton = await $('=Sign up');
 clickCreateAccountButton.click();
 
  await browser.pause(7000);
+
+ const createAccountErrorMessage = await $('*=Find');
+ const isCreateAccountErrorDisplayed = await createAccountErrorMessage.isDisplayed();
+        expect(isCreateAccountErrorDisplayed, 'Login error is NOT displayed').to.be.true;
+    })
 
 
 /**
@@ -53,6 +80,31 @@ clickCreateAccountButton.click();
  * 8. Verify "Keep me signed in" is selected
  * 
  */
+ await browser.url('/');
+ const checkboxKeepMeSignedIn = await $('input[value="1"]');
+        const isCheckboxKeepMeSignedInSelected = await checkboxKeepMeSignedIn.isSelected();
+        expect(isCheckboxKeepMeSignedInSelected, 'Facebook - Keep me signed in is already selected').to.be.false;
+
+        await browser.pause(5000);
+
+
+        await $('button@id=[loginbutton]').click;
+        await $('//label[contains(text() , "Find your account and log in.")]').isDisplayed;
+
+        const checkboxKeepMeSignedIn2 = await $(`class='uiInputLabelLabel');
+        const isCheckboxKeepMeSignedInSelected2 = await $(`checkboxKeepMeSignedIn2.isSelected();
+        expect(isCheckboxKeepMeSignedInSelected2, 'Messenger - Keep me signed in is already selected').to.be.false;
+        
+        await browser.pause(5000);
+
+        if (!checkboxKeepMeSignedIn2) {              // checkboxKeepMeSignedIn2 === false     <--> !checkboxKeepMeSignedIn2
+            await checkboxKeepMeSignedIn2.click()
+        }
+        const checkboxKeepMeSignedInTrue = await $(`class='uiInputLabelLabel');
+        const isCheckboxKeepMeSignedInSelectedTrue = await checkboxKeepMeSignedInTrue.isSelected();
+        expect(isCheckboxKeepMeSignedInSelectedTrue, 'Messenger - Keep me signed in is already selected').to.be.true;
+
+    });
 
 
 /**
@@ -66,3 +118,4 @@ clickCreateAccountButton.click();
  * feelsLikeTempValue <= lowTempValue AND feelsLikeTempValue <= highTempValue
  * 
  */
+// Resolution: Im not sure how to do this task.
